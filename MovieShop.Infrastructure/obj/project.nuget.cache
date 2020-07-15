@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "5YIZPGG5wZhXYm4I5QdYuV35x6yohhyuJ0YkvjNwcg/DKfAT0TE7/SJHGq1nSHxB+ZRyY69fjTnepceJAqTHzA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\yichen wang\\Desktop\\code\\project\\MovieStore\\MovieShop.Infrastructure\\MovieShop.Infrastructure.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\yichen wang\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\yichen wang\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
