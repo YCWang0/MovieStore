@@ -58,6 +58,32 @@
 //            // we need to have this method so that we can show the empty page for user to enter movie info that need to be created
 //            return View();
 //        }
-    
+
 //    }
 //}
+using Microsoft.AspNetCore.Mvc;
+using MovieStore.Core.ServiceInterfaces;
+using System.Threading.Tasks;
+
+namespace MovieStore.MVC.Controllers
+{
+    public class MoviesController : Controller
+    {
+        // IOC, ASP.NET Core has built-in IOC/DI
+        // In .NET Framework we need to to rely on third-party IOC to do Dependency Injection, Autofac, Ninject
+        private readonly IMovieService _movieService;
+        public MoviesController(IMovieService movieService)
+        {
+            _movieService = movieService;
+        }
+        //  GET localhost/Movies/index
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            // call our Movie Service ,method, highest grossing method
+            var movies = await _movieService.GetTop25HighestRevenueMovies();
+            return View(movies);
+        }
+
+    }
+}

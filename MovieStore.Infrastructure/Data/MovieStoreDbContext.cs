@@ -126,11 +126,11 @@ namespace MovieStore.Infrastructure.Data
             modelBuilder.Property(u => u.HashedPassword).HasColumnType("nvarchar(max)");
             modelBuilder.Property(u => u.Salt).HasColumnType("nvarchar(max)");
             modelBuilder.Property(u => u.PhoneNumber).HasColumnType("nvarchar(max)");
-            modelBuilder.Property(u => u.TwoFactorEnabled).IsRequired();
+            //modelBuilder.Property(u => u.TwoFactorEnabled).IsRequired();
             modelBuilder.Property(u => u.LockoutEndDate).HasColumnType("DateTimeOffset");
             modelBuilder.Property(u => u.LastLoginDateTime).HasColumnType("datetime2");
             modelBuilder.Property(u => u.IsLocked).HasDefaultValue(false);
-            modelBuilder.Property(u => u.AccessFailedCount).IsRequired();
+            //modelBuilder.Property(u => u.AccessFailedCount).IsRequired();
         }
 
         private void ConfigureMovieCast(EntityTypeBuilder<MovieCast> modelBuilder)
