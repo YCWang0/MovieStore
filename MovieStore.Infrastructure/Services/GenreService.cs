@@ -21,5 +21,10 @@ namespace MovieStore.Infrastructure.Services
         {
             return await _genreRepository.ListAllAsync();
         }
+
+        public async Task<IEnumerable<Genre>> GetGenresByMovieId(int movieId)
+        {
+            return await _genreRepository.GetGenresByMovieId(movieId);
+        }
     }
 }

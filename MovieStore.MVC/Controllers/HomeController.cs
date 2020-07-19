@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MovieStore.Core.ServiceInterfaces;
 using MovieStore.MVC.Models;
 
 namespace MovieStore.MVC.Controllers
@@ -16,10 +17,15 @@ namespace MovieStore.MVC.Controllers
     //index -- action method 
     public class HomeController : Controller
     {
+        private readonly IMovieService _MovieService;
+        public HomeController(IMovieService movieService)
+        {
+            _MovieService = movieService;
+        }
         // Action method
         //return string 不行需要return view
         //if return type is interface return instance of a class that implement the interface.
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             //by default MVC will look for same View Name as ation method name
             //it will look inside view folder -->Home(same name as controller)-->index.cshtml(c#+html razor views)
@@ -35,7 +41,19 @@ namespace MovieStore.MVC.Controllers
             //middleware a piece of software logic taht will be executed
             // train DC to boston , multiple stops(middleware) 
             //request --> M1 some logic -->m2->next m3 --> response and then goback wards 
-            return View();// view return viewResult and viewresult implement IACtion interface
+            //return View();// view return viewResult and viewresult implement IACtion interface
+
+
+            // we need or Movie Card we are going to use that one in lots of places...
+            // 1. Home page -- show top revenue movies --> Movie Card
+            // 2. Genres/show Movies belonginf to that genre --> Movie Card
+            // 3. Top Rated Movies --> Top Movies as a card
+            // We have to create this Movie Card in such a way that it can be reused in lots of places
+            // Partial Views will help us in creating reusable Views across the application
+            // Partial views are views inside another view
+            var movies = await _MovieService.GetTop25HighestRevenueMovies();
+            return View(movies);
+
         }
     }
 }

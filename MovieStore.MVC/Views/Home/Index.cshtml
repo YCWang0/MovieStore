@@ -1,7 +1,13 @@
-﻿
-@{
-    ViewData["Title"] = "Index";
-}
-
-<h1>Antra</h1>
-
+﻿@model IEnumerable<MovieStore.Core.Entities.Movie>
+    <div>
+        <div class="container-fluid">
+            <div class="row">
+                @foreach(var movie in Model)
+                {
+                     <partial name="_MovieCard" model="movie"/>
+                     //second way
+                    //@await Html.PartialAsync("_MovieCard",movie)
+                }
+            </div>
+        </div>
+    </div>

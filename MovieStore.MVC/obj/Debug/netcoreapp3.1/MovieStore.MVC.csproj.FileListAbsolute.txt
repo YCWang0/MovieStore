@@ -202,7 +202,6 @@ C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.MVC\obj\Debug\ne
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.MVC\obj\Debug\netcoreapp3.1\MovieStore.MVC.TagHelpers.output.cache
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.MVC\obj\Debug\netcoreapp3.1\MovieStore.MVC.RazorCoreGenerate.cache
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.MVC\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
-C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.MVC\obj\Debug\netcoreapp3.1\Razor\Views\movies\Create.cshtml.g.cs
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.MVC\obj\Debug\netcoreapp3.1\Razor\Views\movies\index.cshtml.g.cs
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.MVC\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.MVC\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
@@ -257,3 +256,8 @@ C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.MVC\bin\Debug\ne
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.MVC\bin\Debug\netcoreapp3.1\MovieStore.Infrastructure.dll
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.MVC\bin\Debug\netcoreapp3.1\MovieStore.Infrastructure.pdb
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.MVC\bin\Debug\netcoreapp3.1\MovieStore.Core.pdb
+C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.MVC\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_MovieCard.cshtml.g.cs
+C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.MVC\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\Genres\Default.cshtml.g.cs
+C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.MVC\obj\Debug\netcoreapp3.1\Razor\Views\movies\Genres.cshtml.g.cs
+C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.MVC\obj\Debug\netcoreapp3.1\Razor\Views\movies\Detail.cshtml.g.cs
+C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.MVC\bin\Debug\netcoreapp3.1\libman.json

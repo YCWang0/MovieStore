@@ -38,6 +38,12 @@ namespace MovieStore.MVC
             services.AddScoped<IMovieRepository, MovieRepository>();
             //如果想用movie service test的话就直接替换
             services.AddScoped<IMovieService, MovieService>();
+
+            services.AddScoped<IGenreService, GenreService>();
+            services.AddScoped<IGenreRepository, GenreRepository>();
+
+            services.AddScoped<ICastService, CastService>();
+            services.AddScoped<ICastRepository, CastRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

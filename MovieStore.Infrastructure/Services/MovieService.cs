@@ -57,6 +57,16 @@ namespace MovieStore.Infrastructure.Services
             //title not null using instance of movierepo to call getcountAsync, since we already implement it in the EfRepo class
             return await _movieRepository.GetCountAsync(m => m.Title.Contains(title));
         }
+
+        public async Task<IEnumerable<Movie>> GetMoviesByGenre(int genreId)
+        {
+            return await _movieRepository.GetMoviesByGenre(genreId);
+        }
+
+        public async Task<decimal> GetMoviesAverageRating(int Id)
+        {
+            return await _movieRepository.GetMoviesAverageRating(Id);
+        }
     }
    /* public class MovieServiceTest : IMovieService
     {

@@ -62,7 +62,12 @@
 //    }
 //}
 using Microsoft.AspNetCore.Mvc;
+using MovieStore.Core.Entities;
+
 using MovieStore.Core.ServiceInterfaces;
+using MovieStore.Infrastructure.Services;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MovieStore.MVC.Controllers
@@ -72,9 +77,13 @@ namespace MovieStore.MVC.Controllers
         // IOC, ASP.NET Core has built-in IOC/DI
         // In .NET Framework we need to to rely on third-party IOC to do Dependency Injection, Autofac, Ninject
         private readonly IMovieService _movieService;
-        public MoviesController(IMovieService movieService)
+        private readonly ICastService _castService;
+        private readonly IGenreService _genreService;
+        public MoviesController(IMovieService movieService,ICastService castService,IGenreService genreService)
         {
             _movieService = movieService;
+            _castService = castService;
+            _genreService = genreService;
         }
         //  GET localhost/Movies/index
         [HttpGet]
@@ -85,5 +94,33 @@ namespace MovieStore.MVC.Controllers
             return View(movies);
         }
 
+        
+        
+        [HttpGet]
+        public async Task<IActionResult> Genres(int genreId)
+        { 
+            var movies = await _movieService.GetMoviesByGenre(genreId);
+            return View(movies);
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> Detail(int Id)
+        {
+            
+            var movie = await _movieService.GetMovieById(Id);
+            var cast = await _castService.GetAllCastsByMovieId(Id);
+            var rat = await _movieService.GetMoviesAverageRating(Id);
+            var genre = await _genreService.GetGenresByMovieId(Id);
+            var d = new Detail()
+            {
+                DetailMovie = movie,
+                DetailCast = cast,
+                DetailRating = rat,
+                DetailGenre = genre
+            };
+            return View(d);
+        }
+
+        
     }
 }
