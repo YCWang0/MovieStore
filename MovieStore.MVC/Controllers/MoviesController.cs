@@ -79,11 +79,13 @@ namespace MovieStore.MVC.Controllers
         private readonly IMovieService _movieService;
         private readonly ICastService _castService;
         private readonly IGenreService _genreService;
+       
         public MoviesController(IMovieService movieService,ICastService castService,IGenreService genreService)
         {
             _movieService = movieService;
             _castService = castService;
             _genreService = genreService;
+
         }
         //  GET localhost/Movies/index
         [HttpGet]
@@ -111,12 +113,14 @@ namespace MovieStore.MVC.Controllers
             var cast = await _castService.GetAllCastsByMovieId(Id);
             var rat = await _movieService.GetMoviesAverageRating(Id);
             var genre = await _genreService.GetGenresByMovieId(Id);
+
             var d = new Detail()
             {
                 DetailMovie = movie,
                 DetailCast = cast,
                 DetailRating = rat,
-                DetailGenre = genre
+                DetailGenre = genre,
+
             };
             return View(d);
         }

@@ -1,46 +1,9 @@
 ﻿@model MovieStore.Core.Entities.Detail
 
-    @*<img src="@Model.DetailMovie.PosterUrl" alt="Alternate Text" />
-<h2>Movie Detail</h2>
-    <ul>
-        <li>Id is: @Model.DetailMovie.Id</li>
-        <li>Title: @Model.DetailMovie.Title</li>
-        <li>Overview: @Model.DetailMovie.Overview</li>
-        <li>Tagline:@Model.DetailMovie.Tagline</li>
-        <li>Budget: @Model.DetailMovie.Budget</li>
-        <li>Revenue: @Model.DetailMovie.Revenue</li>
-        <li>ImdbUrl: @Model.DetailMovie.ImdbUrl</li>
-        <li>TmdbUrl: @Model.DetailMovie.TmdbUrl</li>
-        <li>PosterUrl: @Model.DetailMovie.PosterUrl</li>
-        <li>BackdoorUrl: @Model.DetailMovie.BackdropUrl</li>
-        <li>OrigionalLanguage: @Model.DetailMovie.OriginalLanguage</li>
-        <li>RelaseDate: @Model.DetailMovie.ReleaseDate</li>
-        <li>Runtime: @Model.DetailMovie.RunTime</li>
-        <li>Price: @Model.DetailMovie.Price</li>
-        <li>CreateDate: @Model.DetailMovie.CreatedDate</li>
-        <li>UpdateDate: @Model.DetailMovie.UpdatedDate</li>
-        <li>UpdateBy: @Model.DetailMovie.UpdatedBy</li>
-        <li>CreateBy: @Model.DetailMovie.CreatedBy</li>
-    </ul>
-<h2>Average Rating</h2>
-@Model.DetailRating
-<h2>Casts</h2>
-<ul class="list-group">
-    @foreach(var cast in Model.DetailCast)
-    {
-        <li><img src="@cast.ProfilePath " alt="Alternate Text" />
-    
-            name: @cast.Name
-        </li>
-        
-    }
-    
-</ul>*@
-
-<div class="container"style="width:100%">
-    <div class="row" style="margin:10px; background-color:black">
-        <div class="col">
-            <img src="@Model.DetailMovie.PosterUrl" alt="Movie Poster for @Model.DetailMovie.Title" class="img-thumbnail " style="border-radius:0px;"/>
+<div class="container"style="margin:0px;padding:0px;border:0px">
+    <div class="row" style="margin:0px;padding:0px;border:0px ; background-color:black;">
+        <div class="col-3">
+            <img src="@Model.DetailMovie.PosterUrl" alt="Movie Poster for @Model.DetailMovie.Title" class="img-thumbnail " style="border-radius:0px;margin:0px;border:0px;padding:0px" />
         </div>
         <div class="col-6">
             <h2><p class="text-light">@Model.DetailMovie.Title</p></h2>
@@ -49,36 +12,36 @@
                 @foreach (var g in Model.DetailGenre)
                 {
                     <a href="#" class="badge badge-secondary">@g.Name</a>
-                    
+
                 }
             </p>
-            <p><a href="#" class="badge badge-warning">@Model.DetailRating</a></p>
+            <p><a href="#" class="badge badge-warning">@Model.DetailRating.ToString("F")</a></p>
             <p class="text-light">@Model.DetailMovie.Overview</p>
         </div>
-        <div class="col">
+        <div class="col-3">
             <ul class="list-group list-group-flush">
-                <li class="list-group-item"style="background-color:black">
+                <li class="list-group-item" style="background-color:black">
                     <a href="#"><i class="fab fa-gratipay" style="color:white"></i></a>
                 </li>
-                <li class="list-group-item"style="background-color:black">
+                <li class="list-group-item" style="background-color:black">
                     <i class="fas fa-edit" style="color:white"><text class="text-light">Review </text></i>
-                    
+
                 </li>
-                <li class="list-group-item"style="background-color:black">
+                <li class="list-group-item" style="background-color:black">
                     <i class="fas fa-play" style="color:white"><text class="text-light">TRAILER</text></i>
                 </li>
-                <li class="list-group-item"style="background-color:white">
-                    <p>BUY+@Model.DetailMovie.Price</p>
+                <li class="list-group-item" style="background-color:white">
+                    <p>BUY @Model.DetailMovie.Price</p>
                 </li>
             </ul>
         </div>
     </div>
     <div class="row">
-        <div class="col">
+        <div class="col-4">
             <h3>MOVIE FACTS</h3>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                    <i class="far fa-calendar-alt">RelaceDate  <span class="badge badge-dark">@Model.DetailMovie.ReleaseDate</span>
+                    <i class="far fa-calendar-alt">RelaceDate <span class="badge badge-dark">@Model.DetailMovie.ReleaseDate.Value.ToString("MM:dd:yyyy")</span>
                     </i>
                 </li>
                 <li class="list-group-item">
@@ -86,17 +49,17 @@
                     </i>
                 </li>
                 <li class="list-group-item">
-                    <i class="far fa-money-bill-alt">Box Office <span class="badge badge-dark">$@Model.DetailMovie.Revenue </span>
+                    <i class="far fa-money-bill-alt">Box Office <span class="badge badge-dark"> @string.Format("{0:C}", @Model.DetailMovie.Revenue);</span>
                     </i>
                 </li>
                 <li class="list-group-item">
-                    <i class="fas fa-dollar-sign">Budget  <span class="badge badge-dark">$@Model.DetailMovie.Budget</span>
+                    <i class="fas fa-dollar-sign">Budget  <span class="badge badge-dark">@string.Format("{0:C}", @Model.DetailMovie.Revenue)</span>
                     </i>
                 </li>
                 <li class="list-group-item"><i class="fab fa-imdb"></i><i class="fas fa-share-square"></i></li>
             </ul>
         </div>
-        <div class="col-5">
+        <div class="col-8">
             <h3>CAST</h3>
             <ul class="list-group list-group-flush">
                 @foreach(var c in Model.DetailCast)

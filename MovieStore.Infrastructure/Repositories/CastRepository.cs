@@ -24,5 +24,7 @@ namespace MovieStore.Infrastructure.Repositories
                 .ToListAsync();
             return casts;
         }
+
+
     }
 }

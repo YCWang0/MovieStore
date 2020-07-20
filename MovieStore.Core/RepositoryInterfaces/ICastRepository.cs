@@ -9,6 +9,6 @@ namespace MovieStore.Core.RepositoryInterfaces
     public interface ICastRepository: IAsyncRepository<Cast>
     {
         Task<IEnumerable<Cast>> GetAllCastsByMovieId(int movieId);
-        
+
     }
 }

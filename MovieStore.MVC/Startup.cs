@@ -44,6 +44,8 @@ namespace MovieStore.MVC
 
             services.AddScoped<ICastService, CastService>();
             services.AddScoped<ICastRepository, CastRepository>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
