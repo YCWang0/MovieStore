@@ -74,6 +74,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using MovieStore.MVC.Filters;
 using Microsoft.AspNetCore.Identity;
+using MovieStore.Core.RepositoryInterfaces;
 
 namespace MovieStore.MVC.Controllers
 {
@@ -86,6 +87,7 @@ namespace MovieStore.MVC.Controllers
         private readonly IGenreService _genreService;
         private readonly IUserService _userService;
         private readonly IHttpContextAccessor _httpContextAccessor;
+
         public MoviesController(IMovieService movieService,ICastService castService,IGenreService genreService, IHttpContextAccessor httpContextAccessor,IUserService userService)
         {
             _movieService = movieService;
@@ -93,7 +95,7 @@ namespace MovieStore.MVC.Controllers
             _genreService = genreService;
             _httpContextAccessor = httpContextAccessor;
             _userService= userService;
-
+           
         }
         //  GET localhost/Movies/index
         [HttpGet]
@@ -126,6 +128,7 @@ namespace MovieStore.MVC.Controllers
             var rat = await _movieService.GetMoviesAverageRating(Id);
             var genre = await _genreService.GetGenresByMovieId(Id);
 
+
             var currentIdstr = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
             var purchaseOrNot = false;
             var favOrNot = false;
@@ -146,6 +149,7 @@ namespace MovieStore.MVC.Controllers
                 DetailCast = cast,
                 DetailRating = rat,
                 DetailGenre = genre,
+                //DetailCharacters = chars,
 
                 DetailCurrentUserId = currentId,
                 isPurchased = purchaseOrNot,

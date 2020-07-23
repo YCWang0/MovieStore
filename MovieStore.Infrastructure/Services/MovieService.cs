@@ -13,10 +13,12 @@ namespace MovieStore.Infrastructure.Services
     public class MovieService : IMovieService
     {
         private readonly IMovieRepository _movieRepository;
+        private readonly ICastRepository _castRepository;
         // Constructor Injection, inject MovieRepository class instance
-        public MovieService(IMovieRepository movieRepository)
+        public MovieService(IMovieRepository movieRepository, ICastRepository castRepository)
         {
             _movieRepository = movieRepository;
+            _castRepository = castRepository;
         }
         public async Task<IEnumerable<Movie>> GetTop25HighestRevenueMovies()
         {
@@ -66,6 +68,11 @@ namespace MovieStore.Infrastructure.Services
         public async Task<decimal> GetMoviesAverageRating(int Id)
         {
             return await _movieRepository.GetMoviesAverageRating(Id);
+        }
+
+        public async Task<IEnumerable<Cast>> GetAllCastsByMovieId(int id)
+        {
+           return await _castRepository.GetAllCastsByMovieId(id);
         }
     }
    /* public class MovieServiceTest : IMovieService

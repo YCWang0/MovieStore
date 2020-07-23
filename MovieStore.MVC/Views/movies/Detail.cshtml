@@ -64,28 +64,29 @@
 
 
                     </li>
-                    <li class="list-group-item" style="background-color:black">
-                        <i class="fas fa-play" style="color:white"><text class="text-light">TRAILER</text></i>
-                    </li>
+                    <button type="button" class="btn btn-dark " >
+                        
+                            <i class="fas fa-play" style="color:white"><text class="text-light">TRAILER</text></i>
+                        
+                        </button>
+                        <li class="list-group-item" style="background-color:black">
 
-                    <li class="list-group-item" style="background-color:black">
-
-                        @if (Model.isPurchased)
-                        {
-                            <button type="button" class="btn btn-success btn-lg btn-block btn-sm">
-                                WATCH MOVIE
-                            </button>
-                        }
-                        else
-                        {
-                            <button type="button" class="btn btn-warning btn-lg " data-toggle="modal" data-target="#ConfirmPurchaseModel">
-                                BUY @Model.DetailMovie.Price
-                            </button>
-                        }
+                            @if (Model.isPurchased)
+                            {
+                                <button type="button" class="btn btn-success btn-lg btn-block btn-sm">
+                                    WATCH MOVIE
+                                </button>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-warning btn-lg " data-toggle="modal" data-target="#ConfirmPurchaseModel">
+                                    BUY @Model.DetailMovie.Price
+                                </button>
+                            }
 
 
 
-                    </li>
+                        </li>
 
                 </ul>
             </div>
@@ -120,13 +121,14 @@
             <div class="col-8">
                 <h3>CAST</h3>
                 <ul class="list-group list-group-flush">
-                    @foreach (var c in Model.DetailCast)
+                    @foreach (var c in Model.DetailMovie.MovieCasts)
                     {
                         <li class="list-group-item">
-                            <img src="@c.ProfilePath" alt="Alternate Text" class="rounded-circle" style="width:30px;height:30px" />
+                            <img src="@c.Cast.ProfilePath" alt="Alternate Text" class="rounded-circle" style="width:30px;height:30px" />
 
-                            @c.Name
-                            <p>   </p>
+                            @c.Cast.Name
+                            @c.Character
+                            
                         </li>
                     }
                 </ul>
@@ -150,7 +152,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h5 class="modal-title" id="exampleModalLabel">@Model.DetailMovie.Title which is $@Model.DetailMovie.Price </h5>
+                        <h5 class="modal-title" id="exampleModalLabel">@Model.DetailMovie. which is $@Model.DetailMovie.Price </h5>
                     </div>
                     <input type="hidden" value="@Model.DetailMovie.Id" name="MovieId" />
 

@@ -16,6 +16,6 @@ namespace MovieStore.Core.ServiceInterfaces
         Task<int> GetMovieCount(string title = "");
         Task<IEnumerable<Movie>> GetMoviesByGenre(int genreId);
         Task<decimal> GetMoviesAverageRating(int Id);
-        
+        Task<IEnumerable<Cast>> GetAllCastsByMovieId(int id);
     }
 }

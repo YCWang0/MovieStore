@@ -52,13 +52,17 @@ namespace MovieStore.Infrastructure.Repositories
             var a = await  _dbContext.Reviews.Where(r => r.MovieId == Id).AverageAsync(r => r.Rating);
             return a;
         }
-        //public override async Task<IEnumerable<Cast>> ListAsync(int movieId)
-        //{
-        //    var casts = await _dbContext.MovieCasts.Where(m => m.MovieId == movieId).Include(mc => mc.Cast)
-        //                .Select(c => c.Cast)
-        //                .ToListAsync();
-        //    return casts;
-        //}
+        public override async Task<Movie> GetByIdAsync(int id)
+        {
+            var movie = await _dbContext.Movies
+                                        .Include(m => m.MovieCasts).ThenInclude(m => m.Cast).Include(m => m.MovieGenres)
+                                        .ThenInclude(m => m.Genre)
+                                        .FirstOrDefaultAsync(m => m.Id == id);
+            if (movie == null) return null;
+            var movieRating = await _dbContext.Reviews.Where(r => r.MovieId == id).AverageAsync(r => r.Rating);
+            if (movieRating > 0) movie.Rating = movieRating;
+            return movie;
+        }
 
     }
 }
