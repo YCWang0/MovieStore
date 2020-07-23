@@ -10,30 +10,7 @@
 @*1. Place @model on top of the view with the expecting data type
     2. We can access the actual data using Model (ASP.NET) alias for @model*@
 
-@*<table class="table">
-    @ViewBag.MoviesCount
-@ViewData["myname"];
-<tr>
-    <td>
-        ID
-    </td>
-    <td>
-        Title
-    </td>
-    <td>
-        Budget
-    </td>
-</tr>
 
-@foreach (var movie in Model)
-{
-    <tr>
-        <td>@movie.Id</td>
-        <td>@movie.Title</td>
-        <td>@movie.Budget</td>
-    </tr>
-}
-</table>*@
 
 @model IEnumerable<MovieStore.Core.Entities.Movie>
 <div>

@@ -30,15 +30,10 @@ namespace MovieStore.Infrastructure.Services
         }
         public async Task RemoveFavorite(FavoriteRequestModel favoriteRequest)
         {
-            //Favorite fav = new Favorite
-            //{
-            //    MovieId=favoriteRequest.MovieId,
-            //    UserId=favoriteRequest.UserId
-            //};
-            //await _favoriteRepository.DeleteAsync(fav);
+
             var dbFavorite = await _favoriteRepository.ListAsync(r => r.UserId == favoriteRequest.UserId &&
                                                          r.MovieId == favoriteRequest.MovieId);
-            // var favorite = _mapper.Map<Favorite>(favoriteRequest);
+  
             await _favoriteRepository.DeleteAsync(dbFavorite.First());
 
         }

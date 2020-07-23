@@ -1,4 +1,5 @@
-﻿using MovieStore.Core.Entities;
+﻿using Microsoft.Extensions.Caching.Memory;
+using MovieStore.Core.Entities;
 using MovieStore.Core.RepositoryInterfaces;
 using MovieStore.Core.ServiceInterfaces;
 using System;
@@ -11,15 +12,25 @@ namespace MovieStore.Infrastructure.Services
     public class GenreService : IGenreService
     {
         private readonly IGenreRepository _genreRepository;
-
-        public GenreService(IGenreRepository genreRepository)
+        private readonly IMemoryCache _memoryCache;
+        private static readonly string _genresKey = "genres";
+        private static readonly TimeSpan _defaultCacheDuration = TimeSpan.FromDays(30);
+        public GenreService(IGenreRepository genreRepository, IMemoryCache memoryCache)
         {
             //create instance of Genre Repo
             _genreRepository = genreRepository;
+            _memoryCache = memoryCache;
         }
         public async Task<IEnumerable<Genre>> GetAllGenres()
         {
-            return await _genreRepository.ListAllAsync();
+            // return await _genreRepository.ListAllAsync();
+            // first check if the cache has genres by key
+            var genres = await _memoryCache.GetOrCreateAsync(_genresKey, async entry =>
+            {
+                entry.SlidingExpiration = _defaultCacheDuration;
+                return await _genreRepository.ListAllAsync();
+            });
+            return genres;
         }
 
         public async Task<IEnumerable<Genre>> GetGenresByMovieId(int movieId)

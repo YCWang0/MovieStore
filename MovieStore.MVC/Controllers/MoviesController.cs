@@ -69,8 +69,11 @@ using MovieStore.Core.ServiceInterfaces;
 using MovieStore.Infrastructure.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using MovieStore.MVC.Filters;
+using Microsoft.AspNetCore.Identity;
 
 namespace MovieStore.MVC.Controllers
 {
@@ -110,32 +113,44 @@ namespace MovieStore.MVC.Controllers
             return View(movies);
         }
         
+        //[MovieStoreFilter]
         [HttpGet]
         public async Task<IActionResult> Detail(int Id)
         {
+            //var email = User.Identity.Name;
+            //var currentUser = await _userService.GetUserByEmail(email);
+            //var currentId = currentUser.Id;
 
-                var movie = await _movieService.GetMovieById(Id);
-                var cast = await _castService.GetAllCastsByMovieId(Id);
-                var rat = await _movieService.GetMoviesAverageRating(Id);
-                var genre = await _genreService.GetGenresByMovieId(Id);
+            var movie = await _movieService.GetMovieById(Id);
+            var cast = await _castService.GetAllCastsByMovieId(Id);
+            var rat = await _movieService.GetMoviesAverageRating(Id);
+            var genre = await _genreService.GetGenresByMovieId(Id);
 
-                var email = User.Identity.Name;
-                var currentUser = await _userService.GetUserByEmail(email);
-                var currentId = currentUser.Id;
-                var purchaseOrNot = await _userService.IsMoviePurchased(currentId, Id);
-                var favOrNot = await _userService.IsMovieFavorited(currentId, Id);
-                var reviewed = await _userService.IsMovieReviewed(currentId, Id);
-                var d = new Detail()
-                {
-                    DetailMovie = movie,
-                    DetailCast = cast,
-                    DetailRating = rat,
-                    DetailGenre = genre,
-                    DetailCurrentUserId = currentId,
-                    isPurchased = purchaseOrNot,
-                    IsFavorited = favOrNot,
-                    IsReviewed=reviewed
+            var currentIdstr = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+            var purchaseOrNot = false;
+            var favOrNot = false;
+            var reviewed = false;
+            var currentId = 0;
 
+            if(currentIdstr!=null && !string.IsNullOrWhiteSpace(currentIdstr.Value))
+            {
+                currentId = Int32.Parse(currentIdstr.Value);
+                purchaseOrNot = await _userService.IsMoviePurchased(currentId, Id);
+                favOrNot = await _userService.IsMovieFavorited(currentId, Id);
+                reviewed = await _userService.IsMovieReviewed(currentId, Id);
+            }
+
+            Detail d = new Detail()
+            {
+                DetailMovie = movie,
+                DetailCast = cast,
+                DetailRating = rat,
+                DetailGenre = genre,
+
+                DetailCurrentUserId = currentId,
+                isPurchased = purchaseOrNot,
+                IsFavorited = favOrNot,
+                IsReviewed=reviewed
                 };
                 return View(d);   
         }       
