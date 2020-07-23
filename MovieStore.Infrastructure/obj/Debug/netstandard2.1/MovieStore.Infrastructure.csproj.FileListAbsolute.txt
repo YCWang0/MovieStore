@@ -6,7 +6,7 @@ C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.Infrastructure\o
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.Infrastructure\bin\Debug\netstandard2.1\MovieStore.Infrastructure.pdb
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.Infrastructure\bin\Debug\netstandard2.1\MovieStore.Core.dll
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.Infrastructure\bin\Debug\netstandard2.1\MovieStore.Core.pdb
-C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.Infrastructure\obj\Debug\netstandard2.1\MovieStore.Infrastructure.csproj.CoreCompileInputs.cache
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.Infrastructure\obj\Debug\netstandard2.1\MovieStore.Infrastructure.csproj.CopyComplete
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.Infrastructure\obj\Debug\netstandard2.1\MovieStore.Infrastructure.dll
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.Infrastructure\obj\Debug\netstandard2.1\MovieStore.Infrastructure.pdb
+C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.Infrastructure\obj\Debug\netstandard2.1\MovieStore.Infrastructure.csproj.CoreCompileInputs.cache

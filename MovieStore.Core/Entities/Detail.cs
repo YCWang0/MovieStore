@@ -13,5 +13,10 @@ namespace MovieStore.Core.Entities
         public Decimal DetailRating { get; set; }
         public IEnumerable<Genre> DetailGenre { get; set; }
         //public IEnumerable<MovieCast> DetailCharacters { get; set; }
+        public int DetailCurrentUserId { get; set; }
+        public IEnumerable<Movie> purchasedMovie { get; set; }
+        public bool isPurchased { get; set; }
+        public bool IsFavorited { get; set; }
+        public bool IsReviewed { get; set; }
     }
 }

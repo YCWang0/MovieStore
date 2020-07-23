@@ -61,13 +61,15 @@
 
 //    }
 //}
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieStore.Core.Entities;
-
+using MovieStore.Core.Models.Response;
 using MovieStore.Core.ServiceInterfaces;
 using MovieStore.Infrastructure.Services;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace MovieStore.MVC.Controllers
@@ -79,12 +81,15 @@ namespace MovieStore.MVC.Controllers
         private readonly IMovieService _movieService;
         private readonly ICastService _castService;
         private readonly IGenreService _genreService;
-       
-        public MoviesController(IMovieService movieService,ICastService castService,IGenreService genreService)
+        private readonly IUserService _userService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public MoviesController(IMovieService movieService,ICastService castService,IGenreService genreService, IHttpContextAccessor httpContextAccessor,IUserService userService)
         {
             _movieService = movieService;
             _castService = castService;
             _genreService = genreService;
+            _httpContextAccessor = httpContextAccessor;
+            _userService= userService;
 
         }
         //  GET localhost/Movies/index
@@ -108,23 +113,31 @@ namespace MovieStore.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Detail(int Id)
         {
-            
-            var movie = await _movieService.GetMovieById(Id);
-            var cast = await _castService.GetAllCastsByMovieId(Id);
-            var rat = await _movieService.GetMoviesAverageRating(Id);
-            var genre = await _genreService.GetGenresByMovieId(Id);
 
-            var d = new Detail()
-            {
-                DetailMovie = movie,
-                DetailCast = cast,
-                DetailRating = rat,
-                DetailGenre = genre,
+                var movie = await _movieService.GetMovieById(Id);
+                var cast = await _castService.GetAllCastsByMovieId(Id);
+                var rat = await _movieService.GetMoviesAverageRating(Id);
+                var genre = await _genreService.GetGenresByMovieId(Id);
 
-            };
-            return View(d);
-        }
+                var email = User.Identity.Name;
+                var currentUser = await _userService.GetUserByEmail(email);
+                var currentId = currentUser.Id;
+                var purchaseOrNot = await _userService.IsMoviePurchased(currentId, Id);
+                var favOrNot = await _userService.IsMovieFavorited(currentId, Id);
+                var reviewed = await _userService.IsMovieReviewed(currentId, Id);
+                var d = new Detail()
+                {
+                    DetailMovie = movie,
+                    DetailCast = cast,
+                    DetailRating = rat,
+                    DetailGenre = genre,
+                    DetailCurrentUserId = currentId,
+                    isPurchased = purchaseOrNot,
+                    IsFavorited = favOrNot,
+                    IsReviewed=reviewed
 
-        
+                };
+                return View(d);   
+        }       
     }
 }

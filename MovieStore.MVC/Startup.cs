@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.CodeAnalysis.Options;
@@ -9,11 +10,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MovieStore.Core.Entities;
 using MovieStore.Core.RepositoryInterfaces;
 using MovieStore.Core.ServiceInterfaces;
 using MovieStore.Infrastructure.Data;
 using MovieStore.Infrastructure.Repositories;
 using MovieStore.Infrastructure.Services;
+using MovieStore.MVC.Helpers;
 
 namespace MovieStore.MVC
 {
@@ -34,6 +37,16 @@ namespace MovieStore.MVC
             services.AddDbContext<MovieStoreDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("MovieStoreDbConnection")));
 
+            //add auth cookie
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(
+                    options =>
+                    {
+                        options.Cookie.Name = "MovieStoreAuthCookie";
+                        options.ExpireTimeSpan = TimeSpan.FromHours(2);
+                        options.LoginPath = "/Account/Login";
+                    }
+                );
             //Di in
             services.AddScoped<IMovieRepository, MovieRepository>();
             //如果想用movie service test的话就直接替换
@@ -45,7 +58,17 @@ namespace MovieStore.MVC
             services.AddScoped<ICastService, CastService>();
             services.AddScoped<ICastRepository, CastRepository>();
 
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
+            services.AddScoped<ICryptoService, CryptoService>();
+
+            services.AddScoped<IPurchaseRepository, PurchaseRepository>();
+
+            services.AddScoped<IReviewRepository, ReviewRepository>();
+            services.AddScoped<IFavoriteRepository, FavoriteRepository>();
+            
+            services.AddHttpContextAccessor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,7 +76,8 @@ namespace MovieStore.MVC
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                //app.UseDeveloperExceptionPage();
+                app.UseMovieStoreExceptionMiddleware();
             }
             else
             {
@@ -63,6 +87,7 @@ namespace MovieStore.MVC
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
