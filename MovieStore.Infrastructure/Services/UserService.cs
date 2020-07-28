@@ -28,6 +28,16 @@ namespace MovieStore.Infrastructure.Services
             _reviewRepository = reviewRepository;
             _favoriteRepository = favoriteRepository;
         }
+         public async Task AddFavorite(FavoriteRequestModel favoriteRequest)
+        {
+            var newFavorite = new Favorite
+            {
+                UserId=favoriteRequest.UserId,
+                MovieId=favoriteRequest.MovieId
+            };
+            await _favoriteRepository.AddAsync(newFavorite);
+        }       
+        
         public async Task RemoveFavorite(FavoriteRequestModel favoriteRequest)
         {
 
@@ -42,20 +52,6 @@ namespace MovieStore.Infrastructure.Services
             return await _favoriteRepository.GetExistsAsync(f => f.MovieId == movieId &&
                                                                  f.UserId == userId);
         }
-        public async Task AddFavorite(FavoriteRequestModel favoriteRequest)
-        {
-            var newFavorite = new Favorite
-            {
-                UserId=favoriteRequest.UserId,
-                MovieId=favoriteRequest.MovieId
-            };
-            await _favoriteRepository.AddAsync(newFavorite);
-        }
-        public async Task<bool> IsMovieReviewed(int id, int movieId)
-        {
-            return await _reviewRepository.GetExistsAsync(f => f.MovieId == movieId &&
-                                                                 f.UserId == id);
-        }
         public async Task AddMovieReview(ReviewRequestModel reviewRequest)
         {
             var review = new Review
@@ -67,6 +63,13 @@ namespace MovieStore.Infrastructure.Services
             };
             var createdReview = await _reviewRepository.AddAsync(review);
         }
+
+        public async Task<bool> IsMovieReviewed(int id, int movieId)
+        {
+            return await _reviewRepository.GetExistsAsync(f => f.MovieId == movieId &&
+                                                                 f.UserId == id);
+        }
+
       public async Task<IEnumerable<Review>> GetAllReviewsByUser(int id)
         {
             return await _reviewRepository.GetAllReviewsMakeByUser (id);
@@ -86,12 +89,6 @@ namespace MovieStore.Infrastructure.Services
             return await _userRepository.GetUserByEmail(email);
         }
 
-        public async Task<bool> IsMoviePurchased(int userId, int movieId )
-        {
-            return await _purchaseRepository.GetExistsAsync(p =>
-                p.UserId == userId && p.MovieId == movieId);
-        }
-
         public async Task PurchaseMovie(PurchaseRequestModel purchaseRequest)
         {
 
@@ -108,7 +105,11 @@ namespace MovieStore.Infrastructure.Services
 
 
         }
-
+        public async Task<bool> IsMoviePurchased(int userId, int movieId )
+        {
+            return await _purchaseRepository.GetExistsAsync(p =>
+                p.UserId == userId && p.MovieId == movieId);
+        }
         public async Task<UserRegisterResponseModel> RegisterUser(UserRegisterRequestModel requestModel)
         {
             // Step 1 : Check whether this user already exists in the database

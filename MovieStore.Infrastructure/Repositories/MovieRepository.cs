@@ -19,14 +19,63 @@ namespace MovieStore.Infrastructure.Repositories
 
         public async Task<IEnumerable<Movie>> GetHighestRatedMovies()
         {
-            var movies = await _dbContext.Reviews
-                        .Join(_dbContext.Movies,
-                        r => r.MovieId,
-                        m => m.Id,
-                        (r, m) => new { r, m }).GroupBy(x => x.r.MovieId).OrderByDescending(x=>x.Key).Take(25).ToListAsync();
+            //var movies = await _dbContext.Reviews
+            //            .Join(_dbContext.Movies,
+            //            r => r.MovieId,
+            //            m => m.Id,
+            //            (r, m) => new { r, m }).GroupBy(x => x.r.MovieId).OrderByDescending(x => x.Key).Take(25).ToListAsync();
 
 
-            return (IEnumerable<Movie>)movies;
+            //return (IEnumerable<Movie>)movies;
+
+            var topRatedMovies = await _dbContext.Reviews.Include(m => m.Movie)
+                                     .GroupBy(r => new
+                                     {
+                                         Id = r.MovieId,
+                                         r.Movie.Title,
+                                         r.Movie.Overview,
+                                         r.Movie.Budget,
+                                         r.Movie.Revenue,
+                                         r.Movie.ImdbUrl,
+                                         r.Movie.TmdbUrl,
+                                         r.Movie.PosterUrl,
+                                         r.Movie.BackdropUrl,
+                                         r.Movie.OriginalLanguage,
+                                         r.Movie.ReleaseDate,
+                                         r.Movie.RunTime,
+                                         r.Movie.Price,
+                                         r.Movie.CreatedDate,
+                                         r.Movie.UpdatedDate,
+                                         r.Movie.CreatedBy,
+                                         r.Movie.Tagline
+                                     })
+                                     .OrderByDescending(g => g.Average(m => m.Rating))
+                                     .Select(m => new Movie
+                                     {
+                                         Id = m.Key.Id,
+                                         Title = m.Key.Title,
+                                         Overview = m.Key.Overview,
+                                         Budget = m.Key.Budget,
+                                         Revenue=m.Key.Revenue,
+                                         ImdbUrl=m.Key.ImdbUrl,
+                                         TmdbUrl=m.Key.TmdbUrl,
+                                         PosterUrl = m.Key.PosterUrl,
+                                         BackdropUrl=m.Key.BackdropUrl,
+                                         OriginalLanguage=m.Key.OriginalLanguage,
+                                         ReleaseDate = m.Key.ReleaseDate,
+                                         RunTime=m.Key.RunTime,
+                                         Price=m.Key.Price,
+                                         CreatedDate=m.Key.CreatedDate,
+                                         UpdatedDate=m.Key.UpdatedDate,
+                                         CreatedBy=m.Key.CreatedBy,
+                                         Tagline=m.Key.Tagline,
+                                         Rating = m.Average(x => x.Rating)
+
+                                     })
+                                     .Take(25)
+                                     .ToListAsync();
+            // var topRatedMovies = await _dbContext.Movies.OrderByDescending(r => r.Reviews.Average(r => r.Rating)).Take(25).ToListAsync();
+            return topRatedMovies;
         }
 
 

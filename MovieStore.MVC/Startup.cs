@@ -93,6 +93,8 @@ namespace MovieStore.MVC
             app.UseEndpoints(endpoints =>
             {
                 //routing -- patteren matching technique 
+                // 1.traditional way of routing
+                //2. attribute routing
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
