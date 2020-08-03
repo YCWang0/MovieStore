@@ -1,4 +1,6 @@
-﻿using MovieStore.Core.Entities;
+﻿using MovieStore.Core.Models.Response;
+using MovieStore.Core.Entities;
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -17,5 +19,6 @@ namespace MovieStore.Core.ServiceInterfaces
         Task<IEnumerable<Movie>> GetMoviesByGenre(int genreId);
         Task<decimal> GetMoviesAverageRating(int Id);
         Task<IEnumerable<Cast>> GetAllCastsByMovieId(int id);
+        Task<MovieDetailsResponseModel> GetMovieAsync(int id);
     }
 }

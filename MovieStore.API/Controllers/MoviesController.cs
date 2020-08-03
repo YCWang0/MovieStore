@@ -50,10 +50,10 @@ namespace MovieStore.API.Controllers
         }
         //not working
         [HttpGet]
-        [Route("detail/{id:int}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> GetMovie(int id)
         {
-            var movie = await _movieService.GetMovieById(id);
+            var movie = await _movieService.GetMovieAsync(id);
             return Ok(movie);
         }
 

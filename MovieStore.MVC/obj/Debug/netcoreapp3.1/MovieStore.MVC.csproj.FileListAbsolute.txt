@@ -271,7 +271,9 @@ C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.MVC\obj\Debug\ne
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.MVC\bin\Debug\netcoreapp3.1\Microsoft.Owin.dll
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.MVC\bin\Debug\netcoreapp3.1\Microsoft.Owin.Host.SystemWeb.dll
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.MVC\bin\Debug\netcoreapp3.1\Owin.dll
-C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.MVC\obj\Debug\netcoreapp3.1\MovieStore.MVC.csproj.CoreCompileInputs.cache
-C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.MVC\obj\Debug\netcoreapp3.1\MovieStore.MVC.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.MVC\obj\Debug\netcoreapp3.1\Razor\Views\User\DeleteFavorite.cshtml.g.cs
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.MVC\obj\Debug\netcoreapp3.1\Razor\Views\User\Favorite.cshtml.g.cs
+C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.MVC\bin\Debug\netcoreapp3.1\AutoMapper.dll
+C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.MVC\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.MVC\obj\Debug\netcoreapp3.1\MovieStore.MVC.csproj.CoreCompileInputs.cache
+C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.MVC\obj\Debug\netcoreapp3.1\MovieStore.MVC.MvcApplicationPartsAssemblyInfo.cache

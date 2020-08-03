@@ -55,9 +55,11 @@ C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.API\bin\Debug\ne
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.API\obj\Debug\netcoreapp3.1\MovieStore.API.dll
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.API\obj\Debug\netcoreapp3.1\MovieStore.API.pdb
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.API\obj\Debug\netcoreapp3.1\MovieStore.API.genruntimeconfig.cache
-C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.API\obj\Debug\netcoreapp3.1\MovieStore.API.csproj.CoreCompileInputs.cache
-C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.API\obj\Debug\netcoreapp3.1\MovieStore.API.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.API\bin\Debug\netcoreapp3.1\System.Net.Http.Formatting.dll
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.API\bin\Debug\netcoreapp3.1\System.Web.Http.dll
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.API\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.API\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.API\bin\Debug\netcoreapp3.1\AutoMapper.dll
+C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.API\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.API\obj\Debug\netcoreapp3.1\MovieStore.API.csproj.CoreCompileInputs.cache
+C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.API\obj\Debug\netcoreapp3.1\MovieStore.API.MvcApplicationPartsAssemblyInfo.cache

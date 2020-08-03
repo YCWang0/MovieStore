@@ -4,6 +4,6 @@ C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.Core\obj\Debug\n
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.Core\obj\Debug\netstandard2.0\MovieStore.Core.AssemblyInfoInputs.cache
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.Core\obj\Debug\netstandard2.0\MovieStore.Core.AssemblyInfo.cs
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.Core\bin\Debug\netstandard2.0\MovieStore.Core.pdb
-C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.Core\obj\Debug\netstandard2.0\MovieStore.Core.csproj.CoreCompileInputs.cache
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.Core\obj\Debug\netstandard2.0\MovieStore.Core.dll
 C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.Core\obj\Debug\netstandard2.0\MovieStore.Core.pdb
+C:\Users\yichen wang\Desktop\code\project\MovieStore\MovieStore.Core\obj\Debug\netstandard2.0\MovieStore.Core.csproj.CoreCompileInputs.cache

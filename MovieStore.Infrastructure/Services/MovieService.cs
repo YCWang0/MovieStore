@@ -1,12 +1,16 @@
-﻿using MovieStore.Core.Entities;
+﻿using Microsoft.AspNetCore.Http;
+using MovieStore.Core.Models.Response;
+using MovieStore.Core.Entities;
+
 using MovieStore.Core.RepositoryInterfaces;
 using MovieStore.Core.ServiceInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-
+using AutoMapper;
 
 namespace MovieStore.Infrastructure.Services
 {
@@ -14,11 +18,15 @@ namespace MovieStore.Infrastructure.Services
     {
         private readonly IMovieRepository _movieRepository;
         private readonly ICastRepository _castRepository;
+        private readonly IUserService _userService;
+        private readonly IMapper _mapper;
         // Constructor Injection, inject MovieRepository class instance
-        public MovieService(IMovieRepository movieRepository, ICastRepository castRepository)
+        public MovieService(IMovieRepository movieRepository, ICastRepository castRepository, IUserService userService,IMapper mapper)
         {
             _movieRepository = movieRepository;
             _castRepository = castRepository;
+            _userService = userService;
+            _mapper = mapper;
         }
         public async Task<IEnumerable<Movie>> GetTop25HighestRevenueMovies()
         {
@@ -36,8 +44,10 @@ namespace MovieStore.Infrastructure.Services
         {
             //use instance of movieRepo to get movie   
             return await _movieRepository.GetByIdAsync(id);
-        } 
-
+        }
+        //*********************
+        //for the api
+       
         public async Task<Movie> CreateMovie(Movie movie)
         {
             //use instance of movieRepo to creare movie
@@ -74,21 +84,34 @@ namespace MovieStore.Infrastructure.Services
         {
            return await _castRepository.GetAllCastsByMovieId(id);
         }
-    }
-   /* public class MovieServiceTest : IMovieService
-    {
-        public async Task<IEnumerable<Movie>> GetTop25HighestRevenueMovies()
+
+        public async Task<MovieDetailsResponseModel> GetMovieAsync(int id)
         {
-            var movies = new List<Movie>()
-                        {
-                            new Movie {Id = 1, Title = "Avengers: Infinity War", Budget = 1200000},
-                            new Movie {Id = 2, Title = "Avatar", Budget = 1200000},
-                            new Movie {Id = 3, Title = "Star Wars: The Force Awakens", Budget = 1200000},
-                            new Movie {Id = 4, Title = "Titanic", Budget = 1200000},
-                        };
-            return movies;
+            var movie = await _movieRepository.GetByIdAsync(id);
+            //if (movie == null) throw new NotFoundException("Movie", id);
+            var favoritesCount = 0;
+            var response = _mapper.Map<MovieDetailsResponseModel>(movie);
+            response.FavoritesCount = favoritesCount;
+
+
+            //var response = new MovieDetailsResponseModel()
+            //{
+            //    Id = movie.Id,
+            //    Title = movie.Title,
+            //    PosterUrl = movie.PosterUrl,
+            //    BackdropUrl = movie.BackdropUrl,
+            //    Rating = movie.Rating,
+            //    Overview = movie.Overview,
+            //    Tagline = movie.Tagline,
+            //    Budget = movie.Budget,
+            //    Revenue = movie.Revenue,
+            //    ImdbUrl = movie.ImdbUrl,
+            //    ReleaseDate = movie.ReleaseDate,
+            //    RunTime = movie.RunTime,
+            //    Price = movie.Price
+            //};
+            return response;
         }
     }
-   */
 
 }

@@ -12,7 +12,7 @@ namespace MovieStore.Core.Entities
         public IEnumerable<Cast> DetailCast { get; set; }
         public Decimal DetailRating { get; set; }
         public IEnumerable<Genre> DetailGenre { get; set; }
-       // public IEnumerable<string> DetailCharacters { get; set; }
+        // public IEnumerable<string> DetailCharacters { get; set; }
 
         public int DetailCurrentUserId { get; set; }
         public IEnumerable<Movie> purchasedMovie { get; set; }

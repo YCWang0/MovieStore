@@ -18,9 +18,10 @@ namespace MovieStore.API.Controllers
         {
             _genreService = genreService;
         }
+
         [HttpGet]
-        [Route("genres")]
-       public async Task<IActionResult> GetAllGenres([FromBody]IGenreService genreService)
+        [Route("")]
+       public async Task<IActionResult> GetAllGenres()
         {
             var genres = await _genreService.GetAllGenres();
             return Ok(genres);

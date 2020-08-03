@@ -20,7 +20,7 @@ namespace MovieStore.API.Controllers
         {
             _userService = userService;
         }
-        //[Authorize]
+        [Authorize]
         [HttpPost("purchase")]
         public async Task<ActionResult> CreatePurchase([FromBody] PurchaseRequestModel purchaseRequest)
         {
@@ -34,42 +34,42 @@ namespace MovieStore.API.Controllers
             var purchases = await _userService.GetAllPurchasesForUser(id);
             return Ok(purchases);
         }
-        //[Authorize]
+        [Authorize]
         [HttpPost("favorite")]
         public async Task<ActionResult> CreateFavorite([FromBody] FavoriteRequestModel favoriteRequest)
         {
             await _userService.AddFavorite(favoriteRequest);
             return Ok();
         }
-        //[Authorize]
+        [Authorize]
         [HttpPost("unfavorite")]
         public async Task<ActionResult> DeleteFavorite([FromBody] FavoriteRequestModel favoriteRequest)
         {
             await _userService.RemoveFavorite(favoriteRequest);
             return Ok();
         }
-        //[Authorize]
+        [Authorize]
         [HttpGet("{id:int}/movie/{movieId}/favorite")]
         public async Task<ActionResult> IsFavoriteExists(int id, int movieId)
         {
             var favoriteExists = await _userService.IsMovieFavorited(id, movieId);
             return Ok(new { isFavorited = favoriteExists });
         }
-       //[Authorize]
+       [Authorize]
         [HttpPost("review")]
         public async Task<ActionResult> CreateReview([FromBody] ReviewRequestModel reviewRequest)
         {
             await _userService.AddMovieReview(reviewRequest);
             return Ok();
         }
-       // [Authorize]
+        [Authorize]
         [HttpGet("{id:int}/movie/{movieId}/review")]
         public async Task<ActionResult> IsReviewExists(int id, int movieId)
         {
             var reviewExists = await _userService.IsMovieReviewed(id, movieId);
             return Ok(new { isReviewed = reviewExists });
         }
-       // [Authorize]
+        [Authorize]
         [HttpGet("reviews/{id}")]
         public async Task<ActionResult> AllReviews(int id)
         {

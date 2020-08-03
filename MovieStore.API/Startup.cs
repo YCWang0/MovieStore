@@ -15,6 +15,8 @@ using MovieStore.Core.ServiceInterfaces;
 using MovieStore.Infrastructure.Data;
 using MovieStore.Infrastructure.Repositories;
 using MovieStore.Infrastructure.Services;
+using AutoMapper;
+using MovieStore.Core.MappingProfiles;
 
 namespace MovieStore.API
 {
@@ -54,7 +56,7 @@ namespace MovieStore.API
             services.AddScoped<IReviewRepository, ReviewRepository>();
             services.AddScoped<IFavoriteRepository, FavoriteRepository>();
 
-
+            services.AddAutoMapper(typeof(Startup), typeof(MoviesMappingProfile));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,7 +66,12 @@ namespace MovieStore.API
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors(builder =>
+            {
+                builder.WithOrigins(Configuration.GetValue<string>("clientSPAUrl")).AllowAnyHeader()
+                     .AllowAnyMethod()
+                     .AllowCredentials();
+            });
             app.UseRouting();
 
             //app.UseAuthorization();

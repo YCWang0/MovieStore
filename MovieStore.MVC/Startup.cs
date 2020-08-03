@@ -17,6 +17,8 @@ using MovieStore.Infrastructure.Data;
 using MovieStore.Infrastructure.Repositories;
 using MovieStore.Infrastructure.Services;
 using MovieStore.MVC.Helpers;
+using AutoMapper;
+using MovieStore.Core.MappingProfiles;
 
 namespace MovieStore.MVC
 {
@@ -36,6 +38,10 @@ namespace MovieStore.MVC
 
             services.AddDbContext<MovieStoreDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("MovieStoreDbConnection")));
+
+
+            services.AddAutoMapper(typeof(Startup), typeof(MoviesMappingProfile));
+
 
             //add auth cookie
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -74,6 +80,8 @@ namespace MovieStore.MVC
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //开发者模式
+            //app.UseDeveloperExceptionPage();
             if (env.IsDevelopment())
             {
                 //app.UseDeveloperExceptionPage();
@@ -83,6 +91,7 @@ namespace MovieStore.MVC
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
             app.UseStaticFiles();
 
             app.UseRouting();
