@@ -52,6 +52,12 @@ namespace MovieStore.Infrastructure.Services
             return await _favoriteRepository.GetExistsAsync(f => f.MovieId == movieId &&
                                                                  f.UserId == userId);
         }
+        public async Task<IEnumerable<Movie>> GetAllFavoritesByUser(int id)
+        {
+            return await _userRepository.GetAllFavoritesByUser(id);
+        }
+
+
         public async Task AddMovieReview(ReviewRequestModel reviewRequest)
         {
             var review = new Review

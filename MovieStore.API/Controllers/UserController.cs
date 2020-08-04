@@ -27,7 +27,7 @@ namespace MovieStore.API.Controllers
             await _userService.PurchaseMovie(purchaseRequest);
             return Ok();
         }
-        [Authorize]
+        //[Authorize]
         [HttpGet("purchases/{id}")]
         public async Task<ActionResult> AllPurchase(int id)
         {
@@ -47,6 +47,13 @@ namespace MovieStore.API.Controllers
         {
             await _userService.RemoveFavorite(favoriteRequest);
             return Ok();
+        }
+        //[Authorize]
+        [HttpGet("favorites/{id}")]
+        public async Task<ActionResult> AllFavorite(int id)
+        {
+            var favorites = await _userService.GetAllFavoritesByUser(id);
+            return Ok(favorites);
         }
         [Authorize]
         [HttpGet("{id:int}/movie/{movieId}/favorite")]

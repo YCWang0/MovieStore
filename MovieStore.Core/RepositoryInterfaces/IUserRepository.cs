@@ -9,6 +9,6 @@ namespace MovieStore.Core.RepositoryInterfaces
     public interface IUserRepository: IAsyncRepository<User>
     {
         Task<User> GetUserByEmail(string email);
-        
+        Task<IEnumerable<Movie>> GetAllFavoritesByUser(int id);
     }
 }

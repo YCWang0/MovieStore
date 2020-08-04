@@ -17,6 +17,10 @@ using MovieStore.Infrastructure.Repositories;
 using MovieStore.Infrastructure.Services;
 using AutoMapper;
 using MovieStore.Core.MappingProfiles;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace MovieStore.API
 {
@@ -36,6 +40,33 @@ namespace MovieStore.API
             services.AddDbContext<MovieStoreDbContext>(options =>
               options.UseSqlServer(Configuration.GetConnectionString("MovieStoreDbConnection")));
             services.AddMemoryCache();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey =
+                            new SymmetricSecurityKey(Encoding
+                                .UTF8
+                                .GetBytes(Configuration
+                                    ["TokenSettings:PrivateKey"]))
+                    };
+                });
+            services.AddAuthorization(options =>
+            {
+                var defaultAuthorizationPolicyBuilder =
+                    new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme);
+                defaultAuthorizationPolicyBuilder = defaultAuthorizationPolicyBuilder.RequireAuthenticatedUser();
+                options.DefaultPolicy = defaultAuthorizationPolicyBuilder.Build();
+            });
+
+
+
+
             services.AddScoped<IMovieRepository, MovieRepository>();
 
             services.AddScoped<IMovieService, MovieService>();
@@ -57,6 +88,8 @@ namespace MovieStore.API
             services.AddScoped<IFavoriteRepository, FavoriteRepository>();
 
             services.AddAutoMapper(typeof(Startup), typeof(MoviesMappingProfile));
+            
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,8 +106,8 @@ namespace MovieStore.API
                      .AllowCredentials();
             });
             app.UseRouting();
-
-            //app.UseAuthorization();
+            
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

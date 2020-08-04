@@ -8,7 +8,14 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieStore.Core.Models.Request;
+using MovieStore.Core.Models.Response;
 using MovieStore.Core.ServiceInterfaces;
+using Microsoft.IdentityModel.Tokens;
+using AutoMapper.Configuration;
+using System.Text;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.Extensions.Configuration;
+using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace MovieStore.API.Controllers
 {
@@ -17,9 +24,11 @@ namespace MovieStore.API.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IUserService _userService;
-        public AccountController(IUserService userService)
+        private readonly IConfiguration _configuration;
+        public AccountController(IUserService userService, IConfiguration configuration)
         {
             _userService = userService;
+            _configuration = configuration;
         }
         [HttpPost]
         [Route("register")]
@@ -56,11 +65,42 @@ namespace MovieStore.API.Controllers
             //    };
             //var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             //await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-            var user = await _userService.ValidateUser(model.Email, model.Password);
-            if (user == null) return Unauthorized();
-            return Ok(user);
-        }
+            
+            //onlu when the user is valid we need to create the jwt token abd send it to client(angular,mobile,postman)
 
+            var user = await _userService.ValidateUser(model.Email, model.Password);
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+            return Ok(new { token = GenerateJWT(user) });
+        }
+        private string GenerateJWT(UserLoginResponseModel user)
+        {
+            var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.GivenName, user.FirstName),
+                    new Claim(ClaimTypes.Surname, user.LastName),
+                    new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
+                    new Claim(ClaimTypes.Name,  user.Email),
+                };
+            var identityClaims = new ClaimsIdentity();
+            identityClaims.AddClaims(claims);
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["TokenSettings:PrivateKey"]));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
+            var expires = DateTime.UtcNow.AddHours(_configuration.GetValue<double>("TokenSettings:ExpirationHours"));
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = identityClaims,
+                Expires = expires,
+                SigningCredentials = credentials,
+                Issuer = _configuration["TokenSettings:Issuer"],
+                Audience = _configuration["TokenSettings:Audience"]
+            };
+            var encodedJwt = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(encodedJwt);
+        }
 
 
     }
